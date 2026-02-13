@@ -1,5 +1,8 @@
 //TODO:update type in returning promise once structure is implemented
 
+import { Project } from "@/types/project";
+import mapProjectApiToInternal from "../mappers/projectApi.mapper";
+
 const API_URL = process.env.NEXT_PUBLIC_PROJECTS_API_URL;
 if (!API_URL) {
   throw new Error("Missing NEXT_PUBLIC_PROJECTS_API_URL");
@@ -8,7 +11,7 @@ if (!API_URL) {
 const PROJECTS_ENDPOINT = `${API_URL}/projects`;
 
 export const projectApi = {
-  async getAll(): Promise<any> {
+  async getAll(): Promise<Project[]> {
     try {
       const response = await fetch(PROJECTS_ENDPOINT);
 
@@ -17,7 +20,7 @@ export const projectApi = {
       }
 
       const data = await response.json();
-      return data;
+      return data.map((project: any) => mapProjectApiToInternal(project));
     } catch (error) {
       console.error("Error fetching projects:", error);
       throw error;
