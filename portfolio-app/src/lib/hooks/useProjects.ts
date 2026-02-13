@@ -1,7 +1,8 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { projectApi } from "../api/projectApi";
+import { Project } from "@/types/project";
 
 // Fetch all projects
 export function useProjects() {
@@ -16,5 +17,16 @@ export function useProject(id: string) {
     queryKey: ["project", id],
     queryFn: () => projectApi.getById(id),
     enabled: !!id,
+  });
+}
+
+export function useCreateProject() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: Project) => projectApi.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+    },
   });
 }

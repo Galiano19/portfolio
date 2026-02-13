@@ -101,4 +101,45 @@ describe("projectApi", () => {
       expect(mapProjectApiToInternal).toHaveBeenCalledWith(mockData);
     });
   });
+
+  describe("create", () => {
+    it("should call the endpoint", async () => {
+      (fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => ({}),
+      });
+
+      await projectApi.create({} as any);
+
+      expect(fetch).toHaveBeenCalledWith(
+        `${process.env.NEXT_PUBLIC_PROJECTS_API_URL}/projects`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        },
+      );
+    });
+
+    it("should throw error when response is not ok", async () => {
+      (fetch as jest.Mock).mockResolvedValue({
+        ok: false,
+        statusText: "Bad Request",
+      });
+
+      await expect(projectApi.create({} as any)).rejects.toThrow(
+        "Failed to update project: Bad Request",
+      );
+    });
+
+    it("should throw error when fetch fails", async () => {
+      (fetch as jest.Mock).mockRejectedValue(new Error("Network error"));
+
+      await expect(projectApi.create({} as any)).rejects.toThrow(
+        "Network error",
+      );
+    });
+  });
 });

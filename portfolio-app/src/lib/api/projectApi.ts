@@ -43,12 +43,19 @@ export const projectApi = {
     }
   },
 
-  //TODO: change any type for the correct type of the data once implemented
-  async create(data: any): Promise<string> {
+  async create(data: Project): Promise<Project> {
     try {
-      //TODO: deleted this console log once implementation is done
-      console.log(data);
-      return "this will create a project";
+      const response = await fetch(PROJECTS_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to update project: ${response.statusText}`);
+      }
+      return response.json();
     } catch (error) {
       console.error("Failed to create project:", error);
       throw error;
