@@ -3,10 +3,7 @@
 import { Project } from "@/types/project";
 import mapProjectApiToInternal from "../mappers/projectApi.mapper";
 
-const API_URL = process.env.NEXT_PUBLIC_PROJECTS_API_URL;
-if (!API_URL) {
-  throw new Error("Missing NEXT_PUBLIC_PROJECTS_API_URL");
-}
+const API_URL = process.env.NEXT_PUBLIC_PROJECTS_API_URL || "";
 
 const PROJECTS_ENDPOINT = `${API_URL}/projects`;
 
