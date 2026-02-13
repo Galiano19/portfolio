@@ -1,3 +1,10 @@
+import { Section } from "@/components/layout/Section";
+import ProjectsList from "@/components/scopes/admin/ProjectsList";
+
 export default function Admin() {
-  return <>this will be the admin page</>;
+  return (
+    <Section>
+      <ProjectsList />
+    </Section>
+  );
 }

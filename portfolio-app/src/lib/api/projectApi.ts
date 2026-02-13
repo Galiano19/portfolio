@@ -1,6 +1,6 @@
 //TODO:update type in returning promise once structure is implemented
 
-import { Project } from "@/types/project";
+import { Project, ProjectInternal } from "@/types/project";
 import mapProjectApiToInternal from "../mappers/projectApi.mapper";
 
 const API_URL = process.env.NEXT_PUBLIC_PROJECTS_API_URL || "";
@@ -40,7 +40,7 @@ export const projectApi = {
     }
   },
 
-  async create(data: Project): Promise<Project> {
+  async create(data: ProjectInternal): Promise<Project> {
     try {
       const response = await fetch(PROJECTS_ENDPOINT, {
         method: "POST",

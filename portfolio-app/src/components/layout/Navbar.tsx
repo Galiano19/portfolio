@@ -54,7 +54,7 @@ export function Navbar() {
           <NavItem href="#">About</NavItem>
           <NavItem href="#">Contact</NavItem>
           <Divider />
-          <NavItem href="#">Admin</NavItem>
+          <NavItem href="/admin">Admin</NavItem>
         </NavItems>
       </Wrapper>
     </Nav>
