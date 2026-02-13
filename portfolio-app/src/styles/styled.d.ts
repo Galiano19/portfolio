@@ -6,10 +6,16 @@ declare module "styled-components" {
       maxWidth: string;
       gutter: string;
     };
+    breakpoints: {
+      md: string;
+      lg: string;
+    };
     colors: {
       background: string;
+      background10: string;
       primary: string;
       font: string;
+      border: string;
     };
   }
 }
