@@ -1,8 +1,23 @@
 //TODO:update type in returning promise once structure is implemented
+
+const API_URL = process.env.NEXT_PUBLIC_PROJECTS_API_URL;
+if (!API_URL) {
+  throw new Error("Missing NEXT_PUBLIC_PROJECTS_API_URL");
+}
+
+const PROJECTS_ENDPOINT = `${API_URL}/projects`;
+
 export const projectApi = {
-  async getAll(): Promise<string> {
+  async getAll(): Promise<any> {
     try {
-      return "this will retrun all projects";
+      const response = await fetch(PROJECTS_ENDPOINT);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return data;
     } catch (error) {
       console.error("Error fetching projects:", error);
       throw error;
