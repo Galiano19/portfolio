@@ -1,17 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import QueryProvider from "../lib/QueryProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import StyledComponentsRegistry from "@/lib/StyledComponentsRegistry";
+import { Providers } from "@/lib/Providers";
+import { AppLayout } from "@/components/layout/AppLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -25,8 +15,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <QueryProvider>{children}</QueryProvider>
+      <body>
+        <html>
+          <body>
+            <StyledComponentsRegistry>
+              <Providers>
+                <AppLayout>{children}</AppLayout>
+              </Providers>
+            </StyledComponentsRegistry>
+          </body>
+        </html>
       </body>
     </html>
   );

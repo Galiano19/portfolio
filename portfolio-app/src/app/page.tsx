@@ -1,21 +1,20 @@
-"use client";
-
-import styled from "styled-components";
-import { useProjects } from "../lib/hooks/useProjects";
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: #bf4f74;
-`;
+import { FullWidthSection } from "@/components/layout/FullWidthSection";
+import Hero from "@/components/scopes/landing/Hero";
+import { theme } from "@/styles/theme";
+import Projects from "@/components/scopes/landing/Projects";
 
 export default function Home() {
-  const { data } = useProjects();
-
-  console.log(data);
   return (
     <div>
-      <Title>To get started, edit the page.tsx file.</Title>
+      <>
+        <FullWidthSection>
+          <Hero />
+        </FullWidthSection>
+
+        <FullWidthSection background={theme.colors.background10}>
+          <Projects />
+        </FullWidthSection>
+      </>
     </div>
   );
 }
