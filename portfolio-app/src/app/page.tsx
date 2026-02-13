@@ -1,5 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import styled from "styled-components";
+
+const Title = styled.h1`
+  font-size: 1.5em;
+  text-align: center;
+  color: #bf4f74;
+`;
 
 export default function Home() {
   return (
@@ -14,7 +21,7 @@ export default function Home() {
           priority
         />
         <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
+          <Title>To get started, edit the page.tsx file.</Title>
           <p>
             Looking for a starting point or more instructions? Head over to{" "}
             <a
