@@ -62,23 +62,38 @@ export const projectApi = {
     }
   },
 
-  //TODO: change any type for the correct type of the data once implemented
-  async update(data: any): Promise<string> {
+  async update(data: Project): Promise<Project> {
     try {
-      //TODO: deleted this console log once implementation is done
-      console.log(data);
-      return "this will update a project";
+      const response = await fetch(`${PROJECTS_ENDPOINT}/${data.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to update project: ${response.statusText}`);
+      }
+
+      return response.json();
     } catch (error) {
       console.error("Failed to update project:", error);
       throw error;
     }
   },
 
-  async delete(id: string): Promise<string> {
+  async delete(id: string): Promise<Project> {
     try {
-      //TODO: deleted this console log once implementation is done
-      console.log(id);
-      return "this will delete project by Id";
+      const response = await fetch(`${PROJECTS_ENDPOINT}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return response.json();
     } catch (error) {
       console.error(`Error deleting project ${id}:`, error);
       throw error;
