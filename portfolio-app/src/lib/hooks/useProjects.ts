@@ -10,3 +10,11 @@ export function useProjects() {
     queryFn: () => projectApi.getAll(),
   });
 }
+
+export function useProject(id: string) {
+  return useQuery({
+    queryKey: ["project", id],
+    queryFn: () => projectApi.getById(id),
+    enabled: !!id,
+  });
+}

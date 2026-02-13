@@ -27,11 +27,16 @@ export const projectApi = {
     }
   },
 
-  async getById(id: string): Promise<string> {
+  async getById(id: string): Promise<Project> {
     try {
-      //TODO: deleted this console log once implementation is done
-      console.log(id);
-      return "this will retrun projects by Id";
+      const response = await fetch(`${PROJECTS_ENDPOINT}/${id}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      return mapProjectApiToInternal(data);
     } catch (error) {
       console.error(`Error fetching project ${id}:`, error);
       throw error;

@@ -56,4 +56,49 @@ describe("projectApi", () => {
       expect(mapProjectApiToInternal).toHaveBeenCalled();
     });
   });
+
+  describe("getById", () => {
+    it("should call the endpoint with id", async () => {
+      (fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => ({ id: "1" }),
+      });
+
+      await projectApi.getById("1");
+
+      expect(fetch).toHaveBeenCalledWith(
+        `${process.env.NEXT_PUBLIC_PROJECTS_API_URL}/projects/1`,
+      );
+    });
+
+    it("should throw error when response is not ok", async () => {
+      (fetch as jest.Mock).mockResolvedValue({
+        ok: false,
+        status: 404,
+      });
+
+      await expect(projectApi.getById("1")).rejects.toThrow(
+        "HTTP error! status: 404",
+      );
+    });
+
+    it("should throw error when fetch fails", async () => {
+      (fetch as jest.Mock).mockRejectedValue(new Error("Network error"));
+
+      await expect(projectApi.getById("1")).rejects.toThrow("Network error");
+    });
+
+    it("should call the mapper", async () => {
+      const mockData = { id: "1" };
+      (fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        json: async () => mockData,
+      });
+      (mapProjectApiToInternal as jest.Mock).mockReturnValue({});
+
+      await projectApi.getById("1");
+
+      expect(mapProjectApiToInternal).toHaveBeenCalledWith(mockData);
+    });
+  });
 });
