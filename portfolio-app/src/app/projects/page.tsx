@@ -1,5 +1,5 @@
 import { Section } from "@/components/layout/Section";
-import ProjectsList from "@/components/scopes/ProjectsList/ProjectList";
+import ProjectsList from "@/components/scopes/projectsList/ProjectList";
 import { H1, P } from "@/components/ui/typography";
 import { projectApi } from "@/lib/api/projectApi";
 

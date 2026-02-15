@@ -1,6 +1,6 @@
 import { FullWidthSection } from "@/components/layout/FullWidthSection";
-import Content from "@/components/projectPage/Content";
-import Hero from "@/components/projectPage/Hero";
+import Content from "@/components/scopes/projectPage/Content";
+import Hero from "@/components/scopes/projectPage/Hero";
 import { projectApi } from "@/lib/api/projectApi";
 
 export default async function Project({
