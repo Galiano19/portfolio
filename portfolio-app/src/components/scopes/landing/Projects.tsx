@@ -69,7 +69,7 @@ const Grid = styled.div`
   }
 `;
 
-const ProjectCard = styled.div`
+const ProjectCard = styled.a`
   cursor: pointer;
   border-radius: 1rem;
   overflow: hidden;
@@ -157,7 +157,7 @@ export default async function Projects() {
 
       <Grid>
         {projects.map((project) => (
-          <ProjectCard key={project.id}>
+          <ProjectCard key={project.id} href={`/projects/${project.id}`}>
             <ImageWrapper>
               <Image src={project.image} alt={project.title} />
               <Overlay>
