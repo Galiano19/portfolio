@@ -45,7 +45,7 @@ export function Navbar() {
         </a>
         <NavItems>
           <NavItem href="/projects">Work</NavItem>
-          <NavItem href="#">About</NavItem>
+          <NavItem href="/about">About</NavItem>
           <NavItem href="/admin">Admin</NavItem>
         </NavItems>
       </Wrapper>
