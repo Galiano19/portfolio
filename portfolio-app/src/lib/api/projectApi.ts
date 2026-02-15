@@ -9,6 +9,10 @@ const PROJECTS_ENDPOINT = `${API_URL}/projects`;
 
 export const projectApi = {
   async getAll(): Promise<Project[]> {
+    if (!API_URL) {
+      return [];
+    }
+
     try {
       const response = await fetch(PROJECTS_ENDPOINT);
 
@@ -25,6 +29,10 @@ export const projectApi = {
   },
 
   async getById(id: string): Promise<Project> {
+    if (!API_URL) {
+      throw new Error("API URL not configured");
+    }
+
     try {
       const response = await fetch(`${PROJECTS_ENDPOINT}/${id}`);
 
@@ -41,6 +49,10 @@ export const projectApi = {
   },
 
   async create(data: ProjectInternal): Promise<Project> {
+    if (!API_URL) {
+      throw new Error("API URL not configured");
+    }
+
     try {
       const response = await fetch(PROJECTS_ENDPOINT, {
         method: "POST",
@@ -60,6 +72,10 @@ export const projectApi = {
   },
 
   async update(data: Project): Promise<Project> {
+    if (!API_URL) {
+      throw new Error("API URL not configured");
+    }
+
     try {
       const response = await fetch(`${PROJECTS_ENDPOINT}/${data.id}`, {
         method: "PUT",
@@ -81,6 +97,10 @@ export const projectApi = {
   },
 
   async delete(id: string): Promise<Project> {
+    if (!API_URL) {
+      throw new Error("API URL not configured");
+    }
+
     try {
       const response = await fetch(`${PROJECTS_ENDPOINT}/${id}`, {
         method: "DELETE",
