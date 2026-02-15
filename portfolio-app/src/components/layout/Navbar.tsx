@@ -50,7 +50,7 @@ export function Navbar() {
           GALIANO<span>.</span>DEV
         </a>
         <NavItems>
-          <NavItem href="#">Work</NavItem>
+          <NavItem href="/projects">Work</NavItem>
           <NavItem href="#">About</NavItem>
           <NavItem href="#">Contact</NavItem>
           <Divider />
