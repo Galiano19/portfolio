@@ -1,6 +1,5 @@
-"use client";
-
-import { useProjects } from "@/lib/hooks/useProjects";
+import { projectApi } from "@/lib/api/projectApi";
+import { theme } from "@/styles/theme";
 import { Project } from "@/types/project";
 import styled from "styled-components";
 
@@ -48,7 +47,7 @@ const ExploreLink = styled.a`
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${theme.colors.primary};
   transition: all 0.3s ease;
 
   &:hover span:last-child {
@@ -135,8 +134,10 @@ const ProjectTitle = styled.h3`
   }
 `;
 
-export default function Projects() {
-  const { data, isLoading, isError } = useProjects();
+export default async function Projects() {
+  const data = await projectApi.getAll();
+
+  if (!data || data?.length === 0) return null;
 
   const projects: Project[] = data?.slice(0, 4) ?? [];
 
@@ -151,28 +152,20 @@ export default function Projects() {
           </Subtitle>
         </TitleGroup>
 
-        <ExploreLink href="#">Explore All Work</ExploreLink>
+        <ExploreLink href="/projects">Explore All Work</ExploreLink>
       </Header>
 
       <Grid>
-        {isLoading &&
-          Array.from({ length: 4 }).map((_, i) => (
-            <div key={i}>Loading...</div>
-          ))}
-
-        {!isLoading &&
-          projects.map((project) => (
-            <ProjectCard key={project.id}>
-              <ImageWrapper>
-                <Image src={project.image} alt={project.title} />
-                <Overlay>
-                  <ProjectTitle>{project.title}</ProjectTitle>
-                </Overlay>
-              </ImageWrapper>
-            </ProjectCard>
-          ))}
-
-        {isError && <>Something went wrong loading projects.</>}
+        {projects.map((project) => (
+          <ProjectCard key={project.id}>
+            <ImageWrapper>
+              <Image src={project.image} alt={project.title} />
+              <Overlay>
+                <ProjectTitle>{project.title}</ProjectTitle>
+              </Overlay>
+            </ImageWrapper>
+          </ProjectCard>
+        ))}
       </Grid>
     </Wrapper>
   );

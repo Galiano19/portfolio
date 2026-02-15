@@ -36,12 +36,6 @@ const NavItem = styled.a`
   }
 `;
 
-const Divider = styled.div`
-  height: 1rem;
-  width: 1px;
-  background: ${theme.colors.primary} / 20;
-`;
-
 export function Navbar() {
   return (
     <Nav>
@@ -50,10 +44,8 @@ export function Navbar() {
           GALIANO<span>.</span>DEV
         </a>
         <NavItems>
-          <NavItem href="#">Work</NavItem>
+          <NavItem href="/projects">Work</NavItem>
           <NavItem href="#">About</NavItem>
-          <NavItem href="#">Contact</NavItem>
-          <Divider />
           <NavItem href="/admin">Admin</NavItem>
         </NavItems>
       </Wrapper>
